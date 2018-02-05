@@ -31,11 +31,11 @@ Jan2015 = mean(s5,'omitnan');
 Jan2016 = mean(s6,'omitnan');
 Jan2017 = mean(s7,'omitnan');
 Jan2018 = mean(s8,'omitnan');
-years = {2011;2012;2013;2014;2015;2016;2017;2018}
+years = {2011;2012;2013;2014;2015;2016;2017;2018};
 Mean_Snow = {Jan2011;Jan2012;Jan2013;Jan2014;Jan2015;Jan2016;Jan2017;Jan2018};
 
-X = cell2table(years)
-Y = cell2table(Mean_Snow)
+X = cell2table(years);
+Y = cell2table(Mean_Snow);
 x = X{:,1}; y = Y{:,1};
 bar(x,y)
 title('Snow in January 2011-2017');
