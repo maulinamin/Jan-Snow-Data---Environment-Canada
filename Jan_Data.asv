@@ -44,12 +44,6 @@ figure(2);
 numbins = 12;
 histogram(y,numbins)
 title('Histogram for Snowfall during Jan');
-figure(3);
-probplot(y);
-hold on;
-h = probplot(gca,'weibull',y);
-set(h,'color','g')
-mdl = fitlm(x,y)
 %File Directories
 % f2011 = 'C:\Users\Maulin Amin\OneDrive - University of Waterloo\Waterloo\Winter 2018\Environment Canada\Matlab\Git\CSV\Jan 2011.csv';
 % f2012 = 'C:\Users\Maulin Amin\OneDrive - University of Waterloo\Waterloo\Winter 2018\Environment Canada\Matlab\Git\CSV\Jan 2012.csv';
