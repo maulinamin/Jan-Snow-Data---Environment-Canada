@@ -33,19 +33,20 @@ Jan2017 = mean(s7,'omitnan');
 Jan2018 = mean(s8,'omitnan');
 years = {2011;2012;2013;2014;2015;2016;2017;2018};
 Mean_Snow = {Jan2011;Jan2012;Jan2013;Jan2014;Jan2015;Jan2016;Jan2017;Jan2018};
-figure(1);
+figure;
+subplot(2,2,1)        % add first plot in 2 x 2 grid
 X = cell2table(years);
 Y = cell2table(Mean_Snow);
 x = X{:,1}; y = Y{:,1};
 bar(x,y)
 title('Snow in January 2011-2017');
 xlabel('Year'); ylabel('Average cm');
-figure(2);
+subplot(2,2,2)        % add second plot in 2 x 2 grid
 numbins = 12;
 histogram(y,numbins)
 title('Histogram for Snowfall during Jan');
-figure(3);
-probplot(y);
+subplot(2,2,[3 4])    % add third plot to span positions 3 and 4
+probplot('normal',y);
 hold on;
 h = probplot(gca,'weibull',y);
 set(h,'color','g')
