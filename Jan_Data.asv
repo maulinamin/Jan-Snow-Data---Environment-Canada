@@ -1,19 +1,13 @@
-clear; % Clear Memory
-clc; %Clear Command Window
-%Define the folder location of CSV files
+% Clear memory
+clear;
 folder='C:\Users\Maulin Amin\OneDrive - University of Waterloo\Waterloo\Winter 2018\Environment Canada\Matlab\Git\CSV';
-i=1;
+filetype='*.csv';  % or xlsx
+
+f=fullfile(folder,filetype);
+d=dir(f);
+count = numel(d);
 ds = tabularTextDatastore(folder,'FileExtensions','.csv')
-while hasdata(ds)
-    data{i} = read(ds);
-    i=i+1;
-end
-data{1,1}(:,12)
-%Other methods of reading files
-% filetype='*.csv';  % or xlsx
-% f=fullfile(folder,filetype);
-% d=dir(f);
-% count = numel(d);
+T = readall(ds)
 % for k=1:numel(d);
 %   data{k}=xlsread(fullfile(folder,d(k).name));
 % end
