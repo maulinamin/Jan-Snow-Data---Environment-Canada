@@ -1,13 +1,57 @@
-% Clear memory
-clear;
+clear; % Clear Memory
+clc; %Clear Command Window
+%Define the folder location of CSV files
 folder='C:\Users\Maulin Amin\OneDrive - University of Waterloo\Waterloo\Winter 2018\Environment Canada\Matlab\Git\CSV';
-filetype='*.csv';  % or xlsx
+i=1; %Set i=1 so that it does not give error for data{0} which is impossible
+%use the Datastore function to read all the CSV files in the folder
+ds = tabularTextDatastore(folder,'FileExtensions','.csv');
+%a while loop divides the Datastore variable data into years
+while hasdata(ds)
+    data{i} = read(ds);
+    i=i+1;
+end
+%Generate a sequence of years
+t = 1990:1:2018;
+%Calculate the mean snow in Jan for every year from 1990 to 2018
+for k=1:numel(data)
+    s = cell2table(data{1,k}.S);
+    u = table2array(s);
+    mu = nanmean(str2double(u));
+    mean(1,k) = mu;
+end
+%because the above code generated the data in the form on a single row and
+%multiple columns, we now transpose them.
+%We also assign easy variables of x and y,
+%which represent x-axis and y-axis respectively
+y = transpose(mean);
+x = transpose(t);
+%We plot the data into two figures
+%Figure 1 will have two plots: data plot and histogram
+figure;
+subplot(2,1,1) 
+bar(x,y)
+title('Snow across Ontario in January 1990-2018');
+xlabel('Year'); ylabel('Average cm');
+subplot(2,1,2)        % add second plot in 2 x 2 grid
+numbins = 12;
+histogram(y,numbins)
+title('Histogram for Snowfall during Jan');
+subplot(2,2,[3 4])    % add third plot to span positions 3 and 4
+%Figure 2 has the distribution fit
+figure;
+createFit(y);
+%Now we calculate the linear regression model
+mdl = fitlm(x,y)
 
-f=fullfile(folder,filetype);
-d=dir(f);
-count = numel(d);
-ds = tabularTextDatastore(folder,'FileExtensions','.csv')
-T = readall(ds)
+%===================================================================
+%PARTS OF DISCARDED CODE
+%===================================================================
+% data{1,22}(:,12)
+%Other methods of reading files
+% filetype='*.csv';  % or xlsx
+% f=fullfile(folder,filetype);
+% d=dir(f);
+% count = numel(d);
 % for k=1:numel(d);
 %   data{k}=xlsread(fullfile(folder,d(k).name));
 % end
